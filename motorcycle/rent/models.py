@@ -73,6 +73,10 @@ class Rental(models.Model):
         blank=False,
     )
 
+    send_email = models.BooleanField(
+        default=False,
+    )
+
     finished = models.BooleanField(
         default=False,
     )
@@ -98,6 +102,10 @@ class ContactUs(models.Model):
     date_of_creation = models.DateField(
         auto_now_add=True,
         blank=True,
+    )
+
+    send_email = models.BooleanField(
+        default=True,
     )
 
     finished = models.BooleanField(
