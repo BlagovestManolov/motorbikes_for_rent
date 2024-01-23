@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <aside id="fh5co-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                <li style="background-image: url({% static '/images/blog-main-image.jpg' %}); background-position: center; background-size: cover;">
+                    <div class="overlay"></div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 text-center slider-text">
+                                <div class="slider-text-inner">
+                                    <h1>{% translate 'Blog' %}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div id="fh5co-about">
+        {% for blog in blogs %}
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="blog-title">{{ blog.title }}</h3>
+                    <blockquote class="dailyVerse">
+                        <span>{{ blog.date_of_creation }}</span>
+                    </blockquote>
+                    <a href="{% url 'spec-blog-page' blog.pk %}">Learn more</a>
+                </div>
+                <div class="col-md-4">
+                    <p>{{ blog.information|slice:":350" }}</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="img-blog-cont">
+                        <img src="{{ blog.main_image.url }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

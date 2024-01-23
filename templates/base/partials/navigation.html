@@ -1,0 +1,76 @@
+{% load static %}
+{% load i18n %}
+<nav class="fh5co-nav" role="navigation">
+    <div class="container-wrap">
+        <div class="top-menu">
+            <div class="row">
+                <div class="col-md-12 col-offset-0 text-center">
+
+                    <div id="fh5co-logo"><a href="{% url 'contact-page' %}">
+                        <img src="{% static '/images/old-logo.png' %}" alt="logo" width="150px;"></a>
+                    </div>
+                </div>
+                <div class="col-md-12 col-md-offset-0 text-center menu-1">
+                    <ul>
+
+                        <!--								Логиката за активен бутон, в зависимост от пътя, който се определя от urls.py-->
+                        {% if request.path == '/' %}
+                            <li class="active"><a href="{% url 'home-page' %}">{% translate 'Home' %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'home-page' %}">{% translate 'Home' %}</a></li>
+                        {% endif %}
+                        {% if request.path == '/rent/' %}
+                            <li class="active"><a href="{% url 'rent-page' %}">{% translate 'Rent' %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'rent-page' %}">{% translate 'Rent' %}</a></li>
+                        {% endif %}
+                        {% if request.path == '/tour/' %}
+                            <li class="active"><a href="{% url 'tour-page' %}">{% translate 'Tours' %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'tour-page' %}">{% translate 'Tours' %}</a></li>
+                        {% endif %}
+                        {% if request.path == '/faq/' %}
+                            <li class="active"><a href="{% url 'faq-page' %}">{% translate 'FAQ' %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'faq-page' %}">{% translate 'FAQ' %}</a></li>
+                        {% endif %}
+                        {% if request.path == '/blog/' %}
+                            <li class="active"><a href="{% url 'blog-page' %}">{% translate 'Blog' %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'blog-page' %}">{% translate 'Blog' %}</a></li>
+                        {% endif %}
+                        {% if request.path == '/contact/' %}
+                            <li class="active"><a href="{% url 'contact-page' %}">{% translate 'Contact' %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'contact-page' %}">{% translate 'Contact' %}</a></li>
+                        {% endif %}
+                        <!--								Край на логиката, за активен бутон-->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                {% translate 'Language' %}
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+
+                                {% for lang in languages %}
+                                    <li>
+                                        <a href="/{{ lang.code }}" class="dropdown-item" id="dropdown-mobile-version">
+                                            {{ lang.name_local }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>

@@ -1,0 +1,138 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <aside id="fh5co-hero">
+        <div class="flexslider">
+            <ul class="slides">
+
+                <!--            Logic for motorcycle in the front of the home page-->
+                {% for motorcycle in motorcycles %}
+                    <li style="background-image: url({{ motorcycle.main_image.url }}); background-position: center; background-size: cover;">
+                        <div class="overlay"></div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 text-center">
+                                    <div class="slider-text">
+                                        <div class="slider-text-inner">
+                                            <h1>{{ motorcycle.name }}</h1>
+                                            <h2>{% translate 'From only' %} {{ motorcycle.price_22_to_30_days }}{% translate '$ / Day' %}</h2>
+                                            <p><a class="btn btn-primary btn-demo" href="{% url 'rental-motorcycle-page' motorcycle.slug%}">{% translate 'More info' %}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                <!--            End of the logic-->
+
+            </ul>
+        </div>
+    </aside>
+    <div id="fh5co-intro">
+        <div class="row animate-box">
+            <div class="col-md-12 col-md-offset-0 text-center">
+                <h2>{% translate 'Included in the price' %}:</h2>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="fh5co-counter" class="fh5co-counters">
+        <div class="row animate-box">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+
+                    <!--                Included on the price logic.-->
+                    {% for item in included_articles %}
+                        <div class="col-md-3 col-sm-6 col-xs-6 text-center" style="margin-bottom: 30px">
+                            <img src="{{ item.image.url }}" alt="gloves" class="attr-icons"
+                                 style="width: 50px; height: 50px; object-fit: contain">
+                            <div class="article-text-container">
+                                <span class="fh5co-counter-label first-counter-label">{{ item.name }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!--            End of the logic-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fh5co-services" class="fh5co-light-grey">
+        <div class="row animate-box">
+            <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                <h2> {% translate 'Choose one of ours Motorbikes' %} </h2>
+                <p>{% translate 'Premium motorcyles at the best guaranteed prices' %}</p>
+            </div>
+        </div>
+        <div class="row">
+
+            <!--        Logic for motorcycle -->
+            {% for motorcycle in motorcycles %}
+                <div class="col-md-4 animate-box">
+                    <div class="services">
+                        {% with first_image=motorcycle.images.first %}
+                            {% if first_image %}
+                                <a href="{% url 'rental-motorcycle-page' slug=motorcycle.slug %}" class="img-holder"><img class="img-responsive"
+                                                                    src="{{ first_image.image.url }}"
+                                                                    alt="{{ motorcycle.name }}"
+                                                                    style="height: 250px; object-fit: contain"></a>
+                            {% else %}
+                                <a href="{% url 'rental-motorcycle-page' slug=motorcycle.slug %}" class="img-holder"><img class="img-responsive"
+                                                                    src="{{ motorcycle.main_image.url }}"
+                                                                    alt="{{ motorcycle.name }}"
+                                                                    style="height: 250px; object-fit: contain"></a>
+                            {% endif %}
+                        {% endwith %}
+                        <div class="desc">
+                            <h3><a href="{% url 'rental-motorcycle-page' slug=motorcycle.slug %}">{{ motorcycle.name }}</a></h3>
+                            <p>{% translate 'Price list- Day' %}</p>
+                            <table class="table-price-motors">
+                                <tr>
+                                    <th>{% translate 'MIN-MAX (DAYS)' %}</th>
+                                    <th>{% translate 'PRICE/DAY' %}</th>
+                                </tr>
+                                <tr>
+                                    <td>1-7</td>
+                                    <td>${{ motorcycle.price_1_to_7_days }}</td>
+                                </tr>
+                                <tr>
+                                    <td>8-14</td>
+                                    <td>${{ motorcycle.price_8_to_14_days }}</td>
+                                </tr>
+                                <tr>
+                                    <td>15-21</td>
+                                    <td>${{ motorcycle.price_15_to_21_days }}</td>
+                                </tr>
+                                <tr>
+                                    <td>22-30</td>
+                                    <td>${{ motorcycle.price_22_to_30_days }}</td>
+                                </tr>
+                            </table>
+                            <a href="{% url 'rental-motorcycle-page' slug=motorcycle.slug %}">{% translate 'Read More' %} <i class="icon-arrow-right3"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <!--        End logic-->
+
+        </div>
+    </div>
+
+
+    <div id="fh5co-bible-verse">
+        <div class="overlay"></div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row animate-box">
+                    <h3 class="google-review-title">{% translate 'What people think about us' %}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="google-review-container">
+        <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+        <div class="elfsight-app-9bc29a0a-27a4-4aae-95e5-97a6b211a373" data-elfsight-app-lazy></div>
+    </div>
+{% endblock %}

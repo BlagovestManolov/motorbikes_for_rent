@@ -1,0 +1,121 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+    <aside id="fh5co-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                <li
+                        style="background-image: url({{ current_accessory.main_image.url }}); background-position: center; background-size: contain;">
+                    <div class="overlay"></div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <div class="slider-text">
+                                <div class="slider-text-inner">
+                                    <h1>{{ current_accessory.price_per_day }} {% translate '$/Day' context 'unique_context' %}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% for acc_image in current_accessory.images.all %}
+                    <li
+                            style="background-image: url({{ acc_image.image.url }}); background-position: center; background-size: contain;">
+                        <div class="overlay"></div>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 text-center">
+                                <div class="slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>{{ current_accessory.price_per_day }} {% translate '$/Day' context 'unique_context' %}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+    <div id="fh5co-about">
+        <div class="row">
+
+            <div id="fh5co-tours" style="margin-bottom: 25px;">
+                <div class="row animate-box" style="text-align: center;">
+                    <h3 class="resources-options">{{ current_accessory.name }}</h3>
+                    <blockquote class="dailyVerse">
+                        <span>{% translate 'Categories:' context 'unique_context' %} {% translate current_accessory.type %}</span>
+                    </blockquote>
+                </div>
+            </div>
+
+            <hr>
+
+            <div id="fh5co-tours" style="margin-bottom: 10px;">
+                <div class="row animate-box" style="text-align: center;">
+                    <h2 class="resources-options">{% translate 'Calendar' context 'unique_context' %}</h2>
+                    <span>{% translate 'Check for available rental dates for the given accessory.' %}</span>
+                    <div class="av-unav-container"
+                         style="display: flex; justify-content: center; align-items: center; margin-top: 50px; gap: 50px;">
+                        <div class="av-container"
+                             style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;">
+                            <div class="color-av"
+                                 style="background-color: white; border: 1px solid black; width: 20px; height: 20px;"></div>
+                            <p>{% translate 'Available' context 'unique_context' %}</p>
+                        </div>
+                        <div class="unav-container"
+                             style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;">
+                            <div class="color-av"
+                                 style="background-color: #9d1a28; border: 1px solid black; width: 20px; height: 20px;"></div>
+                            <p> {% translate 'Unavailable' context 'unique_context' %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Calendar -->
+            <div id="calendar-container">
+                <div class="calendar" style="width: 30vw; min-width: 300px;">
+                    <div class="header">
+                        <a data-action="prev-month" href="javascript:void(0)" title="Previous Month"><i></i></a>
+                        <div class="text" data-render="month-year"></div>
+                        <a data-action="next-month" href="javascript:void(0)" title="Next Month"><i></i></a>
+                    </div>
+                    <div class="months" data-flow="left">
+                        <div class="month month-a">
+                            <div class="render render-a"></div>
+                        </div>
+                        <div class="month month-b">
+                            <div class="render render-b"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Calendar -->
+            <hr>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+            <h2>{% translate 'Related products' context 'unique_context' %}</h2>
+        </div>
+        {% for accessory in all_accessories %}
+            {% if accessory != current_accessory %}
+                <div class="col-md-4 text-center animate-box">
+                    <a href="{% url 'spec-accessory-page' accessory.pk%}" class="shop-list-art">
+                        <div class="sermon-entry">
+                            <div class="sermon" style="background-image: url({{ accessory.main_image.url }});"></div>
+                            <h3>{{ accessory.name }}</h3>
+                            <span>{{ accessory.price_per_day }} {% translate '$/Day' context 'unique_context' %}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

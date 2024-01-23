@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <aside id="fh5co-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                <li style="background-image: url({{ blog.main_image.url }}); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                    <div class="overlay"></div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 text-center slider-text">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div id="fh5co-tours">
+        <div class="row animate-box" style="text-align: center;">
+            <h2 style="color: #9d1a28; text-align: center;">{{ blog.title }}</h2>
+            <p>{{ blog.information }}</p>
+            {% for image in blog.images.all|slice:":2" %}
+                <img src="{{ image.image.url }}" alt="" style="width: 49%; margin-bottom: 50px;">
+            {% endfor %}
+            {{ blog.more_information.more_information }}
+            {% for image in blog.images.all|slice:"2:" %}
+                <img src="{{ image.image.url }}" alt="#" style="width: 100%; margin-bottom: 50px;">
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

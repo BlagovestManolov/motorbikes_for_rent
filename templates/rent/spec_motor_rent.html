@@ -1,0 +1,255 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <aside id="fh5co-hero">
+        <div class="flexslider">
+            <ul class="slides">
+
+                {% for motor_image in current_motorcycle.images.all %}
+                    <li
+                            style="background-image: url({{ motor_image.image.url }}); background-position: center; background-size: contain;">
+                        <div class="overlay"></div>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 text-center">
+                                <div class="slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1> {% translate 'From' %} {{ current_motorcycle.price_22_to_30_days }} {% translate '$/Day' context 'unique_context' %}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </aside>
+    <div id="fh5co-about">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="blog-title">{{ current_motorcycle.name }}</h3>
+                <blockquote class="dailyVerse">
+                    <span>{% translate 'Categories:' %} {% translate current_motorcycle.type %}</span>
+                    <p style="color: #9d1a28;">{% translate 'Deposit:' %} {{ current_motorcycle.deposit.deposit }}$</p>
+                </blockquote>
+            </div>
+            <div class="col-md-4">
+                <p>{{ current_motorcycle.specification.specifications }}
+                    <br>
+                    {{ current_motorcycle.specification.save_control }}
+                    <br>
+                    {{ current_motorcycle.specification.suspensions }}
+                    <br>
+                    {{ current_motorcycle.specification.clutch }}
+                    <br>
+                    {{ current_motorcycle.specification.brakes }}
+                    <br>
+                    {{ current_motorcycle.specification.weight }}</p>
+
+            </div>
+            <div class="col-md-4">
+                <h3 class="blog-title">{% translate 'Price list- Day' context 'unique_context' %}</h3>
+                <!-- Add table for price per day -->
+                <table class="table-price-motors">
+                    <tr>
+                        <th>{% translate 'MIN-MAX (DAYS)' context 'unique_context' %}</th>
+                        <th>{% translate 'PRICE/DAY' context 'unique_context' %}</th>
+                    </tr>
+                    <tr>
+                        <td>1-7</td>
+                        <td>${{ current_motorcycle.price_1_to_7_days }}</td>
+                    </tr>
+                    <tr>
+                        <td>8-14</td>
+                        <td>${{ current_motorcycle.price_8_to_14_days }}</td>
+                    </tr>
+                    <tr>
+                        <td>15-21</td>
+                        <td>${{ current_motorcycle.price_15_to_21_days }}</td>
+                    </tr>
+                    <tr>
+                        <td>22-30</td>
+                        <td>${{ current_motorcycle.price_22_to_30_days }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="fh5co-tours" style="margin-bottom: 10px;">
+            <div class="row animate-box" style="text-align: center;">
+                <h2 class="resources-options">{% translate 'Calendar' %}</h2>
+                <span>{% translate 'Check for available rental dates for the given bike.' %}</span>
+                <div class="av-unav-container"
+                     style="display: flex; justify-content: center; align-items: center; margin-top: 50px; gap: 50px;">
+                    <div class="av-container"
+                         style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;">
+                        <div class="color-av"
+                             style="background-color: white; border: 1px solid black; width: 20px; height: 20px;"></div>
+                        <p>{% translate 'Available' %}</p>
+                    </div>
+                    <div class="unav-container"
+                         style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;">
+                        <div class="color-av"
+                             style="background-color: #9d1a28; border: 1px solid black; width: 20px; height: 20px;"></div>
+                        <p> {% translate 'Unavailable' %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Calendar -->
+        <div id="calendar-container">
+            <div class="calendar" style="width: 30vw; min-width: 300px;">
+                <div class="header">
+                    <a data-action="prev-month" href="javascript:void(0)" title="Previous Month"><i></i></a>
+                    <div class="text" data-render="month-year"></div>
+                    <a data-action="next-month" href="javascript:void(0)" title="Next Month"><i></i></a>
+                </div>
+                <div class="months" data-flow="left">
+                    <div class="month month-a">
+                        <div class="render render-a"></div>
+                    </div>
+                    <div class="month month-b">
+                        <div class="render render-b"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Calendar -->
+        <hr>
+
+    </div>
+    <div id="fh5co-tours" style="margin-bottom: 100px;">
+        <div class="row animate-box" style="text-align: center;">
+            <h2 style="text-align: center;">{% translate 'Booking Form' %}</h2>
+            <span>{% translate 'Send your enquiry to us. We will contact you soon.' %}</span>
+            <hr>
+            <!-- Form Here -->
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-check mb-3">
+                </div>
+                <div class="row g-3">
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <h3 for="resources-options" style="color: #9d1a28;">{% translate 'Motor' %}</h3>
+                            <label for="motorcycle">{% translate 'Pick-up Motorcycle' %}</label>
+                            {{ form.motorcycle }}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <label for="tour">{% translate 'Pick-up Tour' %}</label>
+                            {{ form.tour }}
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <label for="pickupLocation">{% translate 'Pick-up Location' %}</label>
+                            {{ form.pickup_location }}
+                        </div>
+                    </div>
+                    <div class="col-3" id="dropoffDiv">
+                        <div class="form-floating">
+                            <label for="dropoffLocation">{% translate 'Drop-off Location' %}</label>
+                            {{ form.dropoff_location }}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <label for="pickupDate">{% translate 'Pick-up Date & Time' %}</label>
+                            {{ form.pickup_date }}
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <label for="dropoffDate">{% translate 'Drop-off Date & Time' %}</label>
+                            {{ form.dropoff_date }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <h3 for="resources-options" style="color: #9d1a28;">{% translate 'Resources' %}</h3>
+                            <div class="choises-container">
+                                {% for accessory in accessories %}
+                                    <div class="form-line">
+                                        <div class="choise">
+                                            <input type="checkbox" id="accessory_{{ accessory.pj }}" name="accessory"
+                                                   value="{{ accessory.pk }}">
+                                            <label for="accessory_{{ accessory.pj }}">{{ accessory.name }}</label>
+                                        </div>
+                                        <p class="p-box-display">{{ accessory.price_per_day }} {% translate '$/Day' context 'unique_context' %}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <h3 for="resources-options" style="color: #9d1a28;">{% translate 'Personal' %}</h3>
+                            <label for="pickupDate">{% translate 'Name' context 'unique_context' %}</label>
+                            {{ form.name }}
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <label for="pickupDate">{% translate 'Email' context 'unique_context' %}</label>
+                            {{ form.email }}
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            <label for="pickupDate">{% translate 'Phone number' context 'unique_context' %}</label>
+                            {{ form.phone_number }}
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-floating">
+                            {{ form.message }}
+                        </div>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">{% translate 'BOOKING' %}</button>
+            </form>
+            <!-- End Form Here -->
+        </div>
+    </div>
+    <hr>
+    <div id="fh5co-tours" style="margin-bottom: 100px;">
+        <h2 style="text-align: center;">{% translate 'Related products' %}</h2>
+        {% for motor in motors %}
+            {% if motor.pk != current_motorcycle.pk %}
+                <div class="row" style="margin-bottom: 100px;">
+                    <div class="col-md-4 text-center animate-box">
+                        <a href="{% url 'rental-motorcycle-page' motor.slug %}" class="shop-list-art">
+                            <div class="sermon-entry">
+                                {% with first_image=motor.images.first %}
+                                    {% if first_image %}
+                                        <div class="sermon"
+                                             style="background-image: url({{ first_image.image.url }});"></div>
+                                    {% else %}
+                                        <div class="sermon"
+                                             style="background-image: url({{ motor.main_image.url }});"></div>
+                                    {% endif %}
+                                {% endwith %}
+                                <h3>{{ motor.name }}</h3>
+                                <span>{{ motor.price_22_to_30_days }} {% translate '$/Day' context 'unique_context' %}</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+{% endblock %}

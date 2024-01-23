@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+    <aside id="fh5co-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                <li style="background-image: url({% static 'images/contact-main-image.png' %}); background-position: center; background-size: cover;">
+                    <div class="overlay"></div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div id="fh5co-contact">
+        <div class="row animate-box">
+            <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                <h2>{% translate 'Contact us' %}</h2>
+                <p>{% translate "Please use the following form to leave your inquiry, suggestion, or comment. We will respond to you shortly. You matter to us." %}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-md-push-8 animate-box">
+                <h3>{% translate 'Our Address' %}</h3>
+                <ul class="contact-info">
+                    <li><i class="icon-location4"></i>{{ our_information.address }}</li>
+                    <li><i class="icon-phone3"></i>{{ our_information.phone }}</li>
+                    <li><i class="icon-location3"></i><a href="#">{{ our_information.email }}</a></li>
+                    <li><i class="icon-globe2"></i><a href="#">{{ our_information.website }}</a></li>
+                </ul>
+            </div>
+            <div class="col-md-7 col-md-pull-2 animate-box">
+                <div class="row">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.name }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form.message }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="submit" value="{% translate 'Send Message' %}" class="btn btn-primary btn-modify">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

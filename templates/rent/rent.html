@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<aside id="fh5co-hero">
+    <div class="flexslider">
+        <ul class="slides">
+            <li style="background-image: url({% static '/images/rent-main-image.jpg' %}); background-position: center; background-size: cover;">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center slider-text">
+                            <div class="slider-text-inner">
+                                <h1>{% translate 'Rent' %}</h1>
+                                <h2>{% translate 'Home/Shop' %}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</aside>
+<div id="fh5co-sermon">
+    <div class="row animate-box">
+        <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+            <h2>{% translate 'Shop' %}</h2>
+            <p>{% translate 'Choose from our range of motorcycles and accessories to make your experience unforgettable.' %}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row" style="margin-bottom: 100px;">
+        <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+            <h2>{% translate 'Motorbikes' %}</h2>
+        </div>
+
+        {% for motorcycle in motorcycles %}
+        <div class="col-md-4 text-center animate-box">
+            <a href="{% url 'rental-motorcycle-page' slug=motorcycle.slug %}" class="shop-list-art">
+                <div class="sermon-entry">
+                    {% with first_image=motorcycle.images.first %}
+                    {% if first_image %}
+                        <div class="sermon" style="background-image: url({{ first_image.image.url }}); background-size: contain"></div>
+                    {% else %}
+                        <div class="sermon" style="background-image: url({{ motorcycle.main_image.url }}); background-size: contain"></div>
+                    {% endif %}
+                    {% endwith %}
+                    <h3>{{ motorcycle.name }}</h3>
+                    <span>{{ motorcycle.price_22_to_30_days }} {% translate '$/Day' context 'unique_context' %}</span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+            <h2>{% translate 'Accessories' %}</h2>
+        </div>
+
+        {% for accessory in accessories %}
+        <div class="col-md-4 text-center animate-box">
+            <a href="{% url 'spec-accessory-page' accessory.pk %}" class="shop-list-art">
+                <div class="sermon-entry">
+                    <div class="sermon" style="background-image: url({{ accessory.main_image.url }}); background-size: contain;"></div>
+                    <h3>{{ accessory.name }}</h3>
+                    <span>{{ accessory.price_per_day }} $/{% translate 'Day' %}</span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
