@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 
 def send_successful_contact_us_email(user):
     html_message = render_to_string(
-        'email/contact_us_email_template.html',
+        'email/New Template 2.html',
         {'profile': user},
     )
     plain_message = strip_tags(html_message)
@@ -25,10 +25,31 @@ def send_successful_contact_us_email(user):
     )
 
 
+def send_successful_rent_email(user):
+    html_message = render_to_string(
+        'email/contact_us_email_template.html',
+        {'profile': user},
+    )
+    plain_message = strip_tags(html_message)
+    send_mail(
+        subject='Thank You for Your Inquiry!',
+        message=plain_message,
+        html_message=html_message,
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=(user.email,)
+    )
+
+
 @receiver(post_save, sender=ContactUs)
 def send_contact_us_message(sender, instance, **kwargs):
     if instance.send_email:
         send_successful_contact_us_email(instance)
+
+
+@receiver(post_save, sender=Rental)
+def send_documents_to_rent_message(sender, instance, **kwargs):
+    if instance.send_email:
+        send_successful_rent_email(instance)
 
 #
 # @receiver(post_save, sender=Rental)
