@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse
+from django.views import View
 from django.views.generic import ListView, CreateView
 
 from motorcycle.about_us.models import AboutUs
@@ -43,3 +44,8 @@ class ContactPage(CreateView):
         context = super().get_context_data(**kwargs)
         context['our_information'] = AboutUs.objects.first()
         return context
+
+
+class Custom404View(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, '404.html', status=404)

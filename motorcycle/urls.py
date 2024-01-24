@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.urls import path, include, re_path
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
+from motorcycle.core.views import Custom404View
 
 urlpatterns = [
     path(_('admin/'), admin.site.urls),
@@ -44,3 +45,4 @@ if settings.DEBUG:
     )
 
 
+handler404 = Custom404View.as_view()
