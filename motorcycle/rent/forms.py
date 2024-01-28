@@ -24,7 +24,6 @@ class ContactUsForm(forms.ModelForm):
         self.fields['message'].widget.attrs['placeholder'] = _('Message...')
 
 
-
 class MotorcycleRentForm(forms.ModelForm):
     motorcycle = forms.ModelChoiceField(
         queryset=Motorcycle.objects.all(),

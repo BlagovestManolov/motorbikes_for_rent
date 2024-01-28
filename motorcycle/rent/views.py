@@ -31,10 +31,10 @@ class RentalCreateView(CreateView):
         return reverse('home-page')
 
     def form_valid(self, form):
-        motorcycle = form.cleaned_data['motorcycle']  # Retrieve the selected motorcycle
+        # motorcycle = form.cleaned_data['motorcycle']  # Retrieve the selected motorcycle
         # form.instance.motorcycle = motorcycle
 
-        response = super().form_valid(form)
+        # response = super().form_valid(form)
         selected_accessories = form.cleaned_data.get('accessory')
 
         if selected_accessories:
@@ -49,4 +49,5 @@ class RentalCreateView(CreateView):
         slug = self.kwargs.get('slug')
 
         context['current_motorcycle'] = get_object_or_404(Motorcycle, translations__slug=slug, translations__language_code=language)
+        assert isinstance(context, object)
         return context

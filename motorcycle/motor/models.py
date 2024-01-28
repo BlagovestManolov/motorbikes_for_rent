@@ -4,6 +4,7 @@ from parler.models import TranslatableModel, TranslatedFields
 from django.dispatch import receiver
 from django.db.models.signals import post_delete
 
+
 class Motorcycle(TranslatableModel):
     translations = TranslatedFields(
         name=models.CharField(
@@ -82,6 +83,7 @@ class Motorcycle(TranslatableModel):
 @receiver(post_delete, sender=Motorcycle)
 def delete_images_on_motorcycle_delete(sender, instance, **kwargs):
     instance.delete_images()
+
 
 class MotorcycleSpecification(TranslatableModel):
     motorcycle = models.OneToOneField(

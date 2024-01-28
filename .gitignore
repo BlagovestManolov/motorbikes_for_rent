@@ -86,8 +86,10 @@ local_settings.py
 .env
 db.sqlite3
 
-docker-compose-postgre.yml
+old_files/docker-compose-postgre.yml
 
 mydatabase
 
 venv/
+
+old_files/

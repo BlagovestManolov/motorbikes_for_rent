@@ -7,7 +7,6 @@ import parler.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -32,7 +31,10 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255, verbose_name='Included article in the price')),
                 ('date_of_creation', models.DateField(auto_now_add=True)),
                 ('image', models.FileField(upload_to='included_in_the_price/')),
-                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='included_in_the_price.includedintheprice')),
+                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True,
+                                                                on_delete=django.db.models.deletion.CASCADE,
+                                                                related_name='translations',
+                                                                to='included_in_the_price.includedintheprice')),
             ],
             options={
                 'verbose_name': 'included in the price Translation',
@@ -42,6 +44,6 @@ class Migration(migrations.Migration):
                 'default_permissions': (),
                 'unique_together': {('language_code', 'master')},
             },
-            bases = (parler.models.TranslatableModel, models.Model),
+            bases=(parler.models.TranslatableModel, models.Model),
         ),
     ]

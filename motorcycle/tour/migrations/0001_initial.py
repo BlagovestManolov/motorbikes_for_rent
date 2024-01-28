@@ -7,7 +7,6 @@ import parler.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -28,7 +27,9 @@ class Migration(migrations.Migration):
             name='TourMoreInformation',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tour', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='more_information', to='tour.tour')),
+                ('tour',
+                 models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='more_information',
+                                      to='tour.tour')),
             ],
             options={
                 'abstract': False,
@@ -42,7 +43,8 @@ class Migration(migrations.Migration):
                 ('date_of_creation', models.DateField(auto_now_add=True)),
                 ('image', models.FileField(upload_to='tour/more_images/')),
                 ('generated_image_number', models.PositiveIntegerField(default=0, editable=False)),
-                ('tour', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='tour.tour')),
+                ('tour',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='tour.tour')),
             ],
         ),
         migrations.CreateModel(
@@ -56,7 +58,9 @@ class Migration(migrations.Migration):
                 ('main_image', models.FileField(upload_to='tour/main_image/')),
                 ('price', models.PositiveIntegerField(verbose_name='Tour price')),
                 ('slug', models.SlugField(blank=True, null=True)),
-                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='tour.tour')),
+                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True,
+                                                                on_delete=django.db.models.deletion.CASCADE,
+                                                                related_name='translations', to='tour.tour')),
             ],
             options={
                 'verbose_name': 'tour Translation',
@@ -74,7 +78,10 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('language_code', models.CharField(db_index=True, max_length=15, verbose_name='Language')),
                 ('more_information', models.TextField(verbose_name='More information')),
-                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='tour.tourmoreinformation')),
+                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True,
+                                                                on_delete=django.db.models.deletion.CASCADE,
+                                                                related_name='translations',
+                                                                to='tour.tourmoreinformation')),
             ],
             options={
                 'verbose_name': 'tour more information Translation',
@@ -84,6 +91,6 @@ class Migration(migrations.Migration):
                 'default_permissions': (),
                 'unique_together': {('language_code', 'master')},
             },
-            bases = (parler.models.TranslatableModel, models.Model),
+            bases=(parler.models.TranslatableModel, models.Model),
         ),
     ]

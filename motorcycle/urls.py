@@ -44,5 +44,4 @@ if settings.DEBUG:
         document_root=settings.MEDIA_ROOT
     )
 
-
 handler404 = Custom404View.as_view()

@@ -50,37 +50,3 @@ def send_contact_us_message(sender, instance, **kwargs):
 def send_documents_to_rent_message(sender, instance, **kwargs):
     if instance.send_email:
         send_successful_rent_email(instance)
-
-#
-# @receiver(post_save, sender=Rental)
-# def send_email_rent(sender, instance, **kwargs):
-#     html_message = render_to_string(
-#         'email/rental_email_template.html',
-#         {'instance': instance},
-#     )
-#     plain_message = strip_tags(html_message)
-#     if instance.send_email:
-#         subject = 'Thank you for choosing us!'
-#         message = plain_message
-#         html_message = html_message
-#         from_email = settings.EMAIL_HOST_USER
-#         recipient_list = [instance.email]
-#
-#         send_mail(subject, message, from_email, recipient_list)
-#
-#
-# @receiver(post_save, sender=ContactUs)
-# def send_email_contact_us(sender, instance, **kwargs):
-#     html_message = render_to_string(
-#         'email/contact_us_email_template.html',
-#         {'instance': instance},
-#     )
-#     plain_message = strip_tags(html_message)
-#     if instance.send_email:
-#         subject = 'Thank You for Your Inquiry!'
-#         message = plain_message
-#         html_message = html_message
-#         from_email = settings.EMAIL_HOST_USER
-#         recipient_list = [instance.email]
-#
-#         send_mail(subject, message, from_email, recipient_list)

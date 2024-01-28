@@ -7,7 +7,6 @@ import parler.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -33,7 +32,9 @@ class Migration(migrations.Migration):
                 ('phone', models.CharField(max_length=30, verbose_name='Our phone number')),
                 ('email', models.EmailField(max_length=254, verbose_name='Our email')),
                 ('website', models.CharField(max_length=125, verbose_name='Our website')),
-                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='about_us.aboutus')),
+                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True,
+                                                                on_delete=django.db.models.deletion.CASCADE,
+                                                                related_name='translations', to='about_us.aboutus')),
             ],
             options={
                 'verbose_name': 'about us Translation',
@@ -43,6 +44,6 @@ class Migration(migrations.Migration):
                 'default_permissions': (),
                 'unique_together': {('language_code', 'master')},
             },
-            bases = (parler.models.TranslatableModel, models.Model),
+            bases=(parler.models.TranslatableModel, models.Model),
         ),
     ]

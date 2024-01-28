@@ -7,7 +7,6 @@ import parler.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -31,7 +30,8 @@ class Migration(migrations.Migration):
                 ('date_of_creation', models.DateField(auto_now_add=True)),
                 ('image', models.FileField(upload_to='accessory/more_images/')),
                 ('generated_image_number', models.PositiveIntegerField(default=0, editable=False)),
-                ('accessory', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='accessory.accessory')),
+                ('accessory', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images',
+                                                to='accessory.accessory')),
             ],
         ),
         migrations.CreateModel(
@@ -44,7 +44,9 @@ class Migration(migrations.Migration):
                 ('type', models.CharField(blank=True, default='Accessories', editable=False, max_length=20)),
                 ('price_per_day', models.PositiveIntegerField(verbose_name='Price per 1 day')),
                 ('main_image', models.ImageField(upload_to='accessories/main_images/')),
-                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='accessory.accessory')),
+                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True,
+                                                                on_delete=django.db.models.deletion.CASCADE,
+                                                                related_name='translations', to='accessory.accessory')),
             ],
             options={
                 'verbose_name': 'accessory Translation',
@@ -54,6 +56,6 @@ class Migration(migrations.Migration):
                 'default_permissions': (),
                 'unique_together': {('language_code', 'master')},
             },
-            bases = (parler.models.TranslatableModel, models.Model),
+            bases=(parler.models.TranslatableModel, models.Model),
         ),
     ]

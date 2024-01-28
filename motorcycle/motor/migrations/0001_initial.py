@@ -7,7 +7,6 @@ import parler.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -28,7 +27,9 @@ class Migration(migrations.Migration):
             name='MotorcycleSpecification',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('motorcycle', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='specification', to='motor.motorcycle')),
+                ('motorcycle',
+                 models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='specification',
+                                      to='motor.motorcycle')),
             ],
             options={
                 'abstract': False,
@@ -42,7 +43,8 @@ class Migration(migrations.Migration):
                 ('date_of_creation', models.DateField(auto_now_add=True)),
                 ('image', models.FileField(upload_to='motorcycle/more_images/')),
                 ('generated_image_number', models.PositiveIntegerField(default=0, editable=False)),
-                ('motorcycle', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='motor.motorcycle')),
+                ('motorcycle', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images',
+                                                 to='motor.motorcycle')),
             ],
         ),
         migrations.CreateModel(
@@ -51,7 +53,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date_of_creation', models.DateField(auto_now_add=True)),
                 ('deposit', models.PositiveIntegerField(verbose_name='Motorcycle deposit price')),
-                ('motorcycle', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='deposit', to='motor.motorcycle')),
+                ('motorcycle', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='deposit',
+                                                    to='motor.motorcycle')),
             ],
         ),
         migrations.CreateModel(
@@ -66,9 +69,12 @@ class Migration(migrations.Migration):
                 ('price_8_to_14_days', models.PositiveIntegerField(verbose_name='Price 8 to 14 days rent')),
                 ('price_15_to_21_days', models.PositiveIntegerField(verbose_name='Price 15 to 21 days rent')),
                 ('price_22_to_30_days', models.PositiveIntegerField(verbose_name='Price 22 to 30 days rent')),
-                ('main_image', models.FileField(upload_to='motorcycle/main_images/', verbose_name='Motorcycle main image')),
+                ('main_image',
+                 models.FileField(upload_to='motorcycle/main_images/', verbose_name='Motorcycle main image')),
                 ('slug', models.SlugField(blank=True, null=True)),
-                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='motor.motorcycle')),
+                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True,
+                                                                on_delete=django.db.models.deletion.CASCADE,
+                                                                related_name='translations', to='motor.motorcycle')),
             ],
             options={
                 'verbose_name': 'motorcycle Translation',
@@ -91,7 +97,10 @@ class Migration(migrations.Migration):
                 ('clutch', models.CharField(max_length=255, verbose_name='Motorcycle clutch')),
                 ('brakes', models.CharField(max_length=255, verbose_name='Motorcycle brakes')),
                 ('weight', models.CharField(max_length=255, verbose_name='Motorcycle weight')),
-                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='motor.motorcyclespecification')),
+                ('master', parler.fields.TranslationsForeignKey(editable=False, null=True,
+                                                                on_delete=django.db.models.deletion.CASCADE,
+                                                                related_name='translations',
+                                                                to='motor.motorcyclespecification')),
             ],
             options={
                 'verbose_name': 'motorcycle specification Translation',
@@ -101,6 +110,6 @@ class Migration(migrations.Migration):
                 'default_permissions': (),
                 'unique_together': {('language_code', 'master')},
             },
-            bases = (parler.models.TranslatableModel, models.Model),
+            bases=(parler.models.TranslatableModel, models.Model),
         ),
     ]
