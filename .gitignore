@@ -93,3 +93,17 @@ mydatabase
 venv/
 
 old_files/
+
+.env.dev
+.env.prod
+.env.prod.db
+
+.flake8
+
+docker-compose.prod.yml
+docker-compose.yml
+Dockerfile
+Dockerfile.prod
+
+entrypoint.prod.sh
+entrypoint.sh
