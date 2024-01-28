@@ -94,6 +94,8 @@ venv/
 
 old_files/
 
+nginx/
+
 .env.dev
 .env.prod
 .env.prod.db

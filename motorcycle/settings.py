@@ -162,7 +162,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-STATIC_ROOT = os.getenv('STATIC_ROOT')
+STATIC_ROOT = BASE_DIR / 'static_files'
 
 # Media files
 MEDIA_URL = 'media/'
@@ -174,8 +174,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # SMTP Server config
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = os.environ.get("EMAIL_PORT", "587")
 EMAIL_USE_TLS = bool(os.environ.get('EMAIL_USE_TLS', default=1))
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "testemail@test.com")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "test_password")
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
