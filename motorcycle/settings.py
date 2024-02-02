@@ -90,6 +90,7 @@ WSGI_APPLICATION = 'motorcycle.wsgi.application'
 # }
 
 
+# For local test
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

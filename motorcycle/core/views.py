@@ -56,6 +56,7 @@ class Custom404View(View):
 def serve_document(request, document_name):
     document_path = os.path.join(settings.STATIC_ROOT, 'document', document_name)
     with open(document_path, 'rb') as document:
-        response = HttpResponse(document.read(), content_type='application/pdf')  # Adjust content_type based on your document type
+        response = HttpResponse(document.read(),
+                                content_type='application/pdf')  # Adjust content_type based on your document type
         response['Content-Disposition'] = f'attachment; filename="{document_name}"'
         return response

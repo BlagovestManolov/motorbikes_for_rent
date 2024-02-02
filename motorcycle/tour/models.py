@@ -36,8 +36,17 @@ class Tour(TranslatableModel):
     )
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Check if English translation is available, and set it if not
+        english_translation = self.translations.filter(language_code='en').first()
+        if not english_translation:
+            english_translation = self.translations.create(language_code='en', name='default_name')
+
+        # Generate the English slug automatically if not provided
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(english_translation.name)
+
         super().save(*args, **kwargs)
 
     def __str__(self):

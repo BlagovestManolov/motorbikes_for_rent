@@ -133,7 +133,7 @@ h1, h2, h3, h4, h5, h6, figure {
     padding: 1em 0;
     font-family: "Libre Baskerville", serif;
     display: block;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+
 }
 
 @media screen and (max-width: 768px) {
@@ -1302,6 +1302,16 @@ input[type="text"] {
     .nav-item.dropdown .dropdown-menu li #dropdown-mobile-version:hover {
         color: black;
     }
+
+    .fh5co-nav .container-wrap .top-menu .row #phone-logo-email {
+        flex-direction: column;
+        gap: 20px;
+        border-bottom: none;
+            }
+
+    .fh5co-nav .container-wrap .top-menu .row #phone-logo-email * {
+        font-size: 18px;
+    }
 }
 
 .btn {
@@ -1548,6 +1558,24 @@ input[type="text"] {
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 600;
     color: black;
+}
+
+#phone-logo-email {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+#phone-logo-email * {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 14px;
+}
+
+#phone-logo-email h4:hover a {
+    color: #9d1a28;
 }
 
 table {

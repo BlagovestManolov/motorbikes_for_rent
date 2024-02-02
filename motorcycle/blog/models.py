@@ -1,5 +1,6 @@
 from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
+from django.utils.text import slugify
 
 
 class Blog(TranslatableModel):
@@ -25,7 +26,26 @@ class Blog(TranslatableModel):
         main_image=models.FileField(
             upload_to='blog/main_images/',
         ),
+
+        slug=models.SlugField(
+            null=True,
+            blank=True,
+        ),
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Check if English translation is available, and set it if not
+        english_translation = self.translations.filter(language_code='en').first()
+        if not english_translation:
+            english_translation = self.translations.create(language_code='en', name='default_name')
+
+        # Generate the English slug automatically if not provided
+        if not self.slug:
+            self.slug = slugify(english_translation.title)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
