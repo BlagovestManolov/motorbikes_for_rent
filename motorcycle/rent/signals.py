@@ -27,7 +27,7 @@ def send_successful_contact_us_email(user):
 
 def send_successful_rent_email(user):
     html_message = render_to_string(
-        'email/contact_us_email_template.html',
+        'email/rent_email_template.html',
         {'profile': user},
     )
     plain_message = strip_tags(html_message)

@@ -1,8 +1,10 @@
-from django.shortcuts import render
+import os.path
+from django.http import FileResponse, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, CreateView
-
+from django.conf import settings
 from motorcycle.about_us.models import AboutUs
 from motorcycle.included_in_the_price.models import IncludedInThePrice
 from motorcycle.motor.models import Motorcycle
@@ -49,3 +51,11 @@ class ContactPage(CreateView):
 class Custom404View(View):
     def get(self, request, *args, **kwargs):
         return render(request, '404.html', status=404)
+
+
+def serve_document(request, document_name):
+    document_path = os.path.join(settings.STATIC_ROOT, 'document', document_name)
+    with open(document_path, 'rb') as document:
+        response = HttpResponse(document.read(), content_type='application/pdf')  # Adjust content_type based on your document type
+        response['Content-Disposition'] = f'attachment; filename="{document_name}"'
+        return response
